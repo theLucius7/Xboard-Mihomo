@@ -4,8 +4,8 @@ import 'package:fl_clash/common/common.dart';
 import 'package:fl_clash/enum/enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'generated/clash_config.freezed.dart';
-part 'generated/clash_config.g.dart';
+part 'clash_config.freezed.dart';
+part 'clash_config.g.dart';
 
 typedef HostsMap = Map<String, String>;
 
