@@ -10,8 +10,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'clash_config.dart';
 
-part 'generated/profile.freezed.dart';
-part 'generated/profile.g.dart';
+part 'profile.freezed.dart';
+part 'profile.g.dart';
 
 typedef SelectedMap = Map<String, String>;
 

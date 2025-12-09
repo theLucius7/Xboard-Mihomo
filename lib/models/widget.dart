@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'generated/widget.freezed.dart';
+part 'widget.freezed.dart';
 
 @freezed
 class ActivateState with _$ActivateState {

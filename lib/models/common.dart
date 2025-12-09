@@ -7,8 +7,8 @@ import 'package:fl_clash/enum/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'generated/common.freezed.dart';
-part 'generated/common.g.dart';
+part 'common.freezed.dart';
+part 'common.g.dart';
 
 @freezed
 class NavigationItem with _$NavigationItem {

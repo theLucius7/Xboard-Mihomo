@@ -4,8 +4,8 @@ import 'package:fl_clash/enum/enum.dart';
 import 'package:fl_clash/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'generated/core.freezed.dart';
-part 'generated/core.g.dart';
+part 'core.freezed.dart';
+part 'core.g.dart';
 
 abstract mixin class AppMessageListener {
   void onLog(Log log) {}

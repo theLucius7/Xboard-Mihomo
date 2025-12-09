@@ -7,8 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'models.dart';
 
-part 'generated/config.freezed.dart';
-part 'generated/config.g.dart';
+part 'config.freezed.dart';
+part 'config.g.dart';
 
 const defaultBypassDomain = [
   "*zhihu.com",
