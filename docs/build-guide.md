@@ -19,12 +19,12 @@
 
 ### 基础环境
 
-| 工具 | 版本要求 | 说明 |
-|-----|---------|------|
-| **Flutter SDK** | >= 3.0 | 必需 |
-| **Dart SDK** | >= 2.19 | Flutter 自带 |
-| **Golang** | >= 1.19 | 编译 Clash.Meta 核心 |
-| **Git** | 最新版 | 管理代码和子模块 |
+| 工具            | 版本要求 | 说明                 |
+| --------------- | -------- | -------------------- |
+| **Flutter SDK** | >= 3.0   | 必需                 |
+| **Dart SDK**    | >= 2.19  | Flutter 自带         |
+| **Golang**      | >= 1.19  | 编译 Clash.Meta 核心 |
+| **Git**         | 最新版   | 管理代码和子模块     |
 
 
 ## 环境准备
@@ -35,6 +35,7 @@
 - **Golang** - [下载安装](https://golang.org/dl/)
 
 安装完成后验证：
+
 ```bash
 flutter doctor
 go version
@@ -60,43 +61,51 @@ git submodule update --init --recursive
 ```
 
 这会下载以下子模块：
+
 - `core/Clash.Meta` - Clash Meta 核心（基于 FlClash 分支）
 - `plugins/flutter_distributor` - Flutter 打包分发工具
 - `lib/sdk/flutter_xboard_sdk` - XBoard SDK
 
 **验证子模块状态：**
+
 ```bash
 git submodule status
 ```
 
-### 3. 生成 SDK 代码 ⭐⭐⭐
+### 3. SDK 初始化与代码生成 ⭐⭐⭐
 
-**关键步骤：** 更新子模块后，必须进入 SDK 目录生成代码：
+**关键步骤 A：** XBoard SDK 是独立模块，必须先进入该目录生成代码。
 
 ```bash
-# 进入 SDK 目录
+# 1. 进入 SDK 目录
 cd lib/sdk/flutter_xboard_sdk
 
-# 安装依赖
+# 2. 安装 SDK 依赖
 flutter pub get
 
-# 运行代码生成器
+# 3. 运行 SDK 代码生成器
 dart run build_runner build --delete-conflicting-outputs
 
-# 返回项目根目录
+# 4. 返回项目根目录
 cd ../../..
 ```
 
-> 💡 **为什么需要这一步？**  
-> XBoard SDK 使用 `build_runner` 生成序列化代码（如 JSON 序列化、依赖注入等）。不执行此步骤会导致编译失败。
+> 💡 **为什么？** SDK 使用了序列化工具，不先生成会导致主项目找不到依赖定义。
 
-### 4. 安装项目依赖
+### 4. 主项目初始化与代码生成 ⭐⭐⭐
 
-回到项目根目录，安装所有依赖：
+**关键步骤 B：** 回到根目录，安装主项目依赖并生成主项目的代码（Freezed/Riverpod 等）。
 
 ```bash
+# 1. 确保在项目根目录
+# 2. 安装项目依赖
 flutter pub get
+
+# 3. 运行主项目代码生成器 (至关重要！)
+dart run build_runner build --delete-conflicting-outputs
 ```
+
+> 💡 **注意**：这一步会生成 `app.freezed.dart`, `*.g.dart` 等文件。如果跳过此步，编译时会报大量 `Target of URI doesn't exist` 或 `Undefined name` 错误。
 
 ### 5. 配置 XBoard 配置文件 ⭐
 
@@ -111,12 +120,14 @@ cp assets/config/xboard.config.example.yaml assets/config/xboard.config.yaml
 ```
 
 **必须修改的配置项：**
+
 - `provider` - 你的提供商名称
 - `remote_config.sources[].url` - 远程配置源地址
 - `app.title` 和 `app.website` - 应用信息
 - `security.decrypt_key` - 订阅解密密钥（如果使用加密订阅）
 
 > 💡 **配置说明**：  
+>
 > - 详细配置说明请参考配置文件中的注释
 > - 更多配置示例：[快速开始](quick-start.md) | [配置文档](configuration.md)
 > - ⚠️ 原始配置文件 `xboard.config.yaml` 已被 `.gitignore` 保护，不会被提交到 Git
@@ -136,6 +147,7 @@ dart setup.dart <platform> [options]
 ### 🤖 Android 构建
 
 #### 前置要求
+
 - Android SDK 和 NDK（通过 Android Studio 安装）
 - 设置环境变量 `ANDROID_NDK` 指向 NDK 路径
 
@@ -152,6 +164,7 @@ dart setup.dart android
 ### 🪟 Windows 构建
 
 #### 前置要求
+
 - GCC 编译器（[MinGW-w64](https://www.mingw-w64.org/) 或 [TDM-GCC](https://jmeubank.github.io/tdm-gcc/)）
 - Inno Setup（用于打包安装程序）
 
@@ -169,6 +182,7 @@ dart setup.dart windows --arch arm64   # ARM64 架构
 ### 🍎 macOS 构建
 
 #### 前置要求
+
 - Xcode（从 App Store 安装）
 - Xcode Command Line Tools：`xcode-select --install`
 - CocoaPods：`sudo gem install cocoapods`
@@ -189,6 +203,7 @@ dart setup.dart macos --arch arm64   # Apple Silicon
 #### 前置要求
 
 安装系统依赖（Ubuntu/Debian）：
+
 ```bash
 sudo apt-get install -y \
   clang cmake ninja-build pkg-config \
@@ -247,4 +262,4 @@ flutter run
 ---
 
 **遇到问题？** 提交 [Issue](https://github.com/hakimi-x/Xboard-Mihomo/issues)
-
+```
