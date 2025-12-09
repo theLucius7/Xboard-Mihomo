@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'app.dart';
 import 'config.dart';
 
-part 'generated/state.g.dart';
+part 'state.g.dart';
 
 @riverpod
 Config configState(Ref ref) {

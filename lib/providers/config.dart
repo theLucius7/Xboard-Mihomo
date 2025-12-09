@@ -3,7 +3,7 @@ import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/config.g.dart';
+part 'config.g.dart';
 
 @riverpod
 class AppSetting extends _$AppSetting with AutoDisposeNotifierMixin {

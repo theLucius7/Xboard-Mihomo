@@ -5,7 +5,7 @@ import 'package:fl_clash/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'generated/selector.freezed.dart';
+part 'selector.freezed.dart';
 
 @freezed
 class VM2<A, B> with _$VM2<A, B> {
